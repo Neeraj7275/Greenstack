@@ -18,7 +18,7 @@ import { stripeWebhooks } from "./controllers/order.controller.js";
 const app = express();
 
 const port = process.env.PORT || 4000;
-const allowedOrigin = ['http://localhost:5173','https://greenstack-backend.vercel.app']
+const allowedOrigin = ['http://localhost:5173','https://greenstack.vercel.app/']
 
 await dbconnection();
 await cloudinaryConnection();
