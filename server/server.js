@@ -20,7 +20,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 const allowedOrigin = ['http://localhost:5173','https://greenstack.vercel.app']
 
-dbconnection();
+await dbconnection();
 await cloudinaryConnection();
 
 app.post('/stripe',express.raw({type:'application/json'}),stripeWebhooks)
