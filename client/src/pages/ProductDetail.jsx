@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import ProductCard from "../components/ProductCard";
 
-const ProductDetail = () => {
+const ProductDetail = async () => {
 
     const {products,navigate,addToCart,currency} = useAppContext();
     const {id} = useParams();
@@ -12,7 +12,7 @@ const ProductDetail = () => {
     const [relatedProduct, setRelatedProduct] = useState([]);
     const [thumbnail, setThumbnail] = useState(null);
 
-    const product = products.find((item)=>item._id === id);
+    const product = await products.find((item)=>item._id === id);
 
     useEffect(() => {
         let productCopy = products.slice();
