@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 
-const dbconnection = async ()=>{
+const connectDB = async ()=>{
     try {
-        mongoose.connection.on('connected', ()=>console.log("data base connected"));
-        await mongoose.connect(`${process.env.MONGODB_URI}/greenstack`);
-        
+        mongoose.connection.on('connected', ()=> console.log("database connected")
+        );
+        await mongoose.connect(`${process.env.MONGODB_URI}/greenstack`)
     } catch (error) {
-        console.log("db connection failed",error); 
+        console.log(error.message);
+        
     }
 }
 
-export default dbconnection;
+export default connectDB;

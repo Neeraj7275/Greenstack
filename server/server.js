@@ -3,7 +3,6 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dbconnection from "./config/db.js";
 import userRouter from "./routes/user.route.js";
 import sellerRouter from "./routes/seller.route.js";
 import productRouter from "./routes/product.route.js";
@@ -12,15 +11,16 @@ import addressRouter from "./routes/address.route.js";
 import orderRouter from "./routes/order.route.js";
 import cloudinaryConnection from "./config/cloudinary.js";
 import { stripeWebhooks } from "./controllers/order.controller.js";
+import connectDB from "./config/db.js";
 
-
+await connectDB();
 
 const app = express();
 
 const port = process.env.PORT || 4000;
 const allowedOrigin = ['http://localhost:5173','https://greenstack.vercel.app']
 
-await dbconnection();
+
 await cloudinaryConnection();
 
 app.post('/stripe',express.raw({type:'application/json'}),stripeWebhooks)
