@@ -28,8 +28,9 @@ try {
          await productModel.create({...productData,image:imagesUrl});
          return res.json({success:true,message:"product added"})
 } catch (error) {
-     res.json({success:false, message:"something is missing"});
-}
+    console.error("ADD PRODUCT ERROR ===>", error);
+    res.status(500).json({ success: false, message: error.message || "Unknown error" });
+  }
 }
 
 // productList :/api/product/list
