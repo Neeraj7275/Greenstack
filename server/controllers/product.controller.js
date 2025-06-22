@@ -10,6 +10,9 @@ try {
         let productData = JSON.parse(req.body.productData);
     
         const images = req.files;
+
+        console.log("req.body.productData:", req.body.productData);
+        console.log("req.files:", req.files);
        
         let imagesUrl = await Promise.all(
          images.map(async(item)=>{
