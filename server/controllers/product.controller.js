@@ -7,10 +7,6 @@ import { v2 as cloudinary } from "cloudinary";
 
 export const addProduct = async(req,res,next)=>{
 try {
-   if (!req.body.productData) {
-  return res.status(400).json({ success: false, message: "Missing productData" });
-}
-
         let productData = JSON.parse(req.body.productData);
     
         const images = req.files;
@@ -28,9 +24,8 @@ try {
          await productModel.create({...productData,image:imagesUrl});
          return res.json({success:true,message:"product added"})
 } catch (error) {
-    console.error("ADD PRODUCT ERROR ===>", error);
-    res.status(500).json({ success: false, message: error.message || "Unknown error" });
-  }
+     res.json({success:false, message:error.message});
+}
 }
 
 // productList :/api/product/list
