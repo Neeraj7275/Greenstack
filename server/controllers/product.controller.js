@@ -28,7 +28,7 @@ try {
          await productModel.create({...productData,image:imagesUrl});
          return res.json({success:true,message:"product added"})
 } catch (error) {
-     res.json({success:false, message:error.message});
+     res.json({success:false, message:"something is missing"});
 }
 }
 
