@@ -24,8 +24,11 @@ export const register = async(req,res,next)=>{
 
         const token = jwt.sign({id:user._id},process.env.JWTSECRET,{expiresIn:"7d"})
         res.cookie("token",token,{
-            httpOnly:true,
-        })
+                httpOnly:true,
+                secure:process.env.NODE_env === 'production',
+                sameSite:process.env.NODE_env === 'production' ? 'none': 'strict',
+                maxAge: 7*24*60*60*1000
+            })
         return res.json({success:true,user});
         
     } catch (error) {
@@ -54,6 +57,9 @@ try {
          const token = jwt.sign({id:user._id},process.env.JWTSECRET,{expiresIn:"7d"})
             res.cookie("token",token,{
                 httpOnly:true,
+                secure:process.env.NODE_env === 'production',
+                sameSite:process.env.NODE_env === 'production' ? 'none': 'strict',
+                maxAge: 7*24*60*60*1000
             })
             return res.json({success:true,user});
 } catch (error) {
@@ -75,7 +81,10 @@ export const isAuth = async(req,res)=>{
 export const logout = async(req,res)=>{
     try {
         res.clearCookie("token",
-            {httpOnly:true})
+            {httpOnly:true,
+            secure:process.env.NODE_env === 'production',
+            sameSite:process.env.NODE_env === 'production' ? 'none': 'strict',
+            })
 
             return res.json({success:true,message:"logged out"});
     } catch (error) {

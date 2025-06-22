@@ -63,6 +63,7 @@ export const AppContextProvider = ({children})=>{
             }
         } catch (error) {
             setUser(null);
+            
         }
      }
 

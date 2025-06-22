@@ -9,9 +9,13 @@ try {
     
             if(email === process.env.SELLER_EMAIL && password === process.env.SELLER_PASSWORD){
                 const sellerToken = jwt.sign({email},process.env.JWTSECRET,{expiresIn:"7d"})
+
                 res.cookie("sellerToken",sellerToken,{
-                            httpOnly:true,
-                            })
+                httpOnly:true,
+                secure:process.env.NODE_env === 'production',
+                sameSite:process.env.NODE_env === 'production' ? 'none': 'strict',
+                maxAge: 7*24*60*60*1000
+            })            
                 return res.json({success:true,message:"logged in seller"});
             }
             else{
@@ -33,7 +37,10 @@ try {
  const sellerLogout = async(req,res,next)=>{
       try {
         res.clearCookie("sellerToken",
-            {httpOnly:true})
+            {httpOnly:true,
+             secure:process.env.NODE_env === 'production',
+            sameSite:process.env.NODE_env === 'production' ? 'none': 'strict',   
+            })
 
             return res.json({success:true,message:"logged out"});
     } catch (error) {
